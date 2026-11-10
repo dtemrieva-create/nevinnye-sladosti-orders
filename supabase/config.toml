@@ -1,0 +1,13 @@
+project_id = "qdblduviiygaolwknuda"
+
+[functions.create-application]
+verify_jwt = false
+entrypoint = "./functions/create-application/index.js"
+
+[functions.telegram-hook]
+verify_jwt = false
+entrypoint = "./functions/telegram-hook/index.js"
+
+[functions.setup-telegram]
+verify_jwt = false
+entrypoint = "./functions/setup-telegram/index.js"
