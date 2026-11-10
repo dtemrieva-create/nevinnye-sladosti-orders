@@ -29,7 +29,8 @@ test('saves the update, records blocked delivery, and passes modern key via apik
   if(method==='nr_claim_outbox')return Response.json(operations.filter(x=>x===method).length===1?{id:1,lease_token:'lease',payload:{chat_id:1,text:'hello'}}:null);
   if(method==='sendMessage')return Response.json({ok:false,error_code:403},{status:403});
   if(method==='nr_failed')assert.equal(JSON.parse(options.body).e,'telegram_403');
-  return Response.json(method==='nr_pending_count'?0:null);
+  if (method==='nr_pending_count') return Response.json(0);
+  return new Response(null,{status:204});
  });
  const update={update_id:1,message:{text:'/id',chat:{id:1,type:'private'},from:{id:1,is_bot:false}}};
  assert.equal((await handle(request(update))).status,200);

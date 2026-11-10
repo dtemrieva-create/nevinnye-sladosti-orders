@@ -21,7 +21,8 @@ export async function rpc(env, name, payload, transport=fetch) {
     method:'POST',headers,body:JSON.stringify(payload),signal:AbortSignal.timeout(8000)
   });
   if (!response.ok) throw new Error('Database request failed');
-  return response.json();
+  const result = await response.text();
+  return result ? JSON.parse(result) : null;
 }
 const encoder=new TextEncoder();
 export async function sha256(value) {
