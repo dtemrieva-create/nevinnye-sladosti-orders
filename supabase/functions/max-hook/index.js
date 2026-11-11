@@ -60,10 +60,11 @@ export function handler(env, transport = fetch) {
     const owner = env('ADMIN_CHAT_ID');
     let stage = 'binding';
     try {
-      await rpc(env, 'nr_handle_event', {
+      await rpc(env, 'nr_handle_event_v2', {
         u: eventId, c: user.user_id,
         a: /^[1-9][0-9]*$/.test(owner || '') ? owner : null,
         p_channel: 'max', txt: text, cb: data,
+        ma: /^[1-9][0-9]*$/.test(env('MAX_ADMIN_CHAT_ID') || '') ? env('MAX_ADMIN_CHAT_ID') : null,
         h: start ? await sha256(start) : null,
         r: reply?.type === 'reply' && typeof reply.message?.mid === 'string'
           ? reply.message.mid : null,

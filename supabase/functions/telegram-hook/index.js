@@ -24,10 +24,11 @@ export function handler(env,transport=fetch) {
     const owner=env('ADMIN_CHAT_ID');
     const reply=message.reply_to_message;
     try {
-      await rpc(env,'nr_handle_update',{
-        u:update.update_id,c:chat.id,a:/^[1-9][0-9]*$/.test(owner||'')?owner:null,
+      await rpc(env,'nr_handle_event_v2',{
+        u:String(update.update_id),c:chat.id,a:/^[1-9][0-9]*$/.test(owner||'')?owner:null,
+        p_channel:'telegram',ma:/^[1-9][0-9]*$/.test(env('MAX_ADMIN_CHAT_ID')||'')?env('MAX_ADMIN_CHAT_ID'):null,
         txt:text,cb:data,h:start?await sha256(start[1]):null,
-        r:!callback&&Number.isSafeInteger(reply?.message_id)?reply.message_id:null,
+        r:!callback&&Number.isSafeInteger(reply?.message_id)?String(reply.message_id):null,
         bot_reply:!callback&&reply?.from?.is_bot===true
       },transport);
       if (callback&&typeof callback.id==='string') {

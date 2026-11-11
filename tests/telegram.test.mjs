@@ -34,5 +34,5 @@ test('saves the update, records blocked delivery, and passes modern key via apik
  });
  const update={update_id:1,message:{text:'/id',chat:{id:1,type:'private'},from:{id:1,is_bot:false}}};
  assert.equal((await handle(request(update))).status,200);
- assert.deepEqual(operations,['nr_handle_update','nr_claim_outbox','sendMessage','nr_failed','nr_claim_outbox','nr_pending_count']);
+ assert.deepEqual(operations,['nr_handle_event_v2','nr_claim_outbox','sendMessage','nr_failed','nr_claim_outbox','nr_pending_count']);
 });

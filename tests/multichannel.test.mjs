@@ -41,12 +41,12 @@ test('MAX client and Telegram owner exchange messages without cross-channel acce
  const db=new PGlite();
  try {
   await db.exec('create role anon; create role authenticated; create role service_role;');
-  for(const name of ['202611070001_schema','202611070002_telegram','202611110003_multichannel']){
+  for(const name of ['202611070001_schema','202611070002_telegram','202611110003_multichannel','202611110004_channel_owners']){
    await db.exec(await readFile(new URL('../supabase/migrations/'+name+'.sql',import.meta.url),'utf8'));
   }
   const scalar=async(sql,args=[])=>(await db.query(sql,args)).rows[0]?.value;
   const event=(u,c,channel,txt=null,cb=null,h=null,r=null)=>db.query(
-   'select public.nr_handle_event($1,$2,900,$3,$4,$5,$6,$7,$8)',[u,c,channel,txt,cb,h,r,r!==null]);
+   'select public.nr_handle_event_v2($1,$2,900,$3,$4,$5,$6,$7,$8,null)',[u,c,channel,txt,cb,h,r,r!==null]);
   const id='00000000-0000-4000-8000-000000000101';
   const create=details=>scalar('select public.nr_create_order($1,$2,$3,$4,$5,$6,$7,$8,$9,900) as value',
    [id,'Анна','Торт','Торт ко дню рождения','maxhash','ip','max','+79267085613',details]);

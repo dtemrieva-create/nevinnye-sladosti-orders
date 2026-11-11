@@ -38,12 +38,13 @@ export function handler(env,transport=fetch) {
         const id = input.idempotency_key.toLowerCase();
         const code = await signature(secret, id);
         const ip = request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() || 'unknown';
-        const result = await rpc(env, 'nr_create_order', {
+        const result = await rpc(env, 'nr_create_order_v2', {
           p_id: id, p_name: order.name, p_subject: order.subject,
           p_description: order.description, p_code_hash: await sha256(code),
           p_ip_hash: await signature(secret, 'ip:' + ip),
           p_channel: order.channel, p_phone: order.phone, p_details: order.details,
-          p_admin: owner
+          p_admin: owner,
+          p_max_admin: /^[1-9][0-9]*$/.test(env('MAX_ADMIN_CHAT_ID') || '') ? env('MAX_ADMIN_CHAT_ID') : null
         }, transport);
         if (result.error) return json({error: result.error}, result.error === 'rate' ? 429 : 409, cors);
         try { await deliverOutbox(env, transport, 3); } catch {}
