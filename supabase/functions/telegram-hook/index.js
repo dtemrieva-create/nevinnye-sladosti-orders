@@ -1,4 +1,5 @@
 import {body,equalSecret,json,rpc,sha256,telegram} from '../_shared/core.js';
+import {deliverOutbox} from '../_shared/delivery.js';
 
 export function handler(env,transport=fetch) {
   return async request=>{
@@ -32,20 +33,7 @@ export function handler(env,transport=fetch) {
       if (callback&&typeof callback.id==='string') {
         try { await telegram(env,'answerCallbackQuery',{callback_query_id:callback.id},transport); } catch {}
       }
-      for (let sent=0;sent<8;sent++) {
-        const job=await rpc(env,'nr_claim_outbox',{},transport);
-        if (!job) break;
-        let delivered;
-        try {
-          delivered=await telegram(env,'sendMessage',job.payload,transport);
-          if (!Number.isSafeInteger(delivered?.message_id)) throw new Error('Invalid Telegram message ID');
-        } catch(error) {
-          const code=/^Telegram error (\d+)$/.exec(error.message)?.[1];
-          await rpc(env,'nr_failed',{i:job.id,l:job.lease_token,e:code?'telegram_'+code:'transport'},transport);
-          continue;
-        }
-        await rpc(env,'nr_delivered',{i:job.id,l:job.lease_token,m:delivered.message_id},transport);
-      }
+      await deliverOutbox(env, transport);
       const pending=await rpc(env,'nr_pending_count',{},transport);
       return pending>0?json({retry:true},503):json({ok:true});
     } catch { return json({retry:true},503); }

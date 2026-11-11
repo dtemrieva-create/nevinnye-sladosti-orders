@@ -7,7 +7,7 @@ test('migrations protect data and route replies by prompt',async()=>{
  const db=new PGlite();
  try {
   await db.exec('create role anon; create role authenticated; create role service_role;');
-  for(const migration of ['202611070001_schema','202611070002_telegram']) {
+  for(const migration of ['202611070001_schema','202611070002_telegram','202611110003_multichannel']) {
    await db.exec(await readFile(new URL('../supabase/migrations/'+migration+'.sql',import.meta.url),'utf8'));
   }
   const scalar=async(sql,args=[])=>(await db.query(sql,args)).rows[0]?.value;
@@ -42,7 +42,7 @@ test('expired links, quick replies, leases and retries are handled transactional
  const db=new PGlite();
  try {
   await db.exec('create role anon; create role authenticated; create role service_role;');
-  for(const migration of ['202611070001_schema','202611070002_telegram'])
+  for(const migration of ['202611070001_schema','202611070002_telegram','202611110003_multichannel'])
    await db.exec(await readFile(new URL('../supabase/migrations/'+migration+'.sql',import.meta.url),'utf8'));
   const value=async(sql,args=[])=>(await db.query(sql,args)).rows[0]?.value;
   const claim=()=>value('select public.nr_claim_outbox() as value');

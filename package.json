@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test",
+    "test": "node --test tests/*.test.mjs",
     "bundle": "node scripts/bundle.mjs",
     "check": "node scripts/check.mjs",
     "preview": "node scripts/preview.mjs"

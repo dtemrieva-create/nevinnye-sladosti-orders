@@ -11,3 +11,11 @@ entrypoint = "./functions/telegram-hook/index.js"
 [functions.setup-telegram]
 verify_jwt = false
 entrypoint = "./functions/setup-telegram/index.js"
+
+[functions.max-hook]
+verify_jwt = false
+entrypoint = "./functions/max-hook/index.js"
+
+[functions.setup-max]
+verify_jwt = false
+entrypoint = "./functions/setup-max/index.js"
