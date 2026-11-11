@@ -211,3 +211,17 @@ address small { color: #7a7481; }
 }
 .map-live { padding: 0; gap: 18px; background: var(--color-cream); } .map-live::before { display: none; } .map-live iframe { width: 100%; min-height: 380px; flex: 1; border: 0; } .map-live > a { margin-bottom: 22px; }
 .manual-confirmation { margin: 24px 0; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); } .manual-confirmation summary { cursor: pointer; color: var(--color-violet); } .manual-confirmation input { width: 100%; font-size: 12px; margin: 12px 0; }
+.hero-photo { margin: 0; justify-self: center; width: min(100%, 405px); aspect-ratio: 3 / 4; overflow: hidden; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+.hero.has-portrait { gap: 35px; }
+.hero.has-portrait .hero-art { display: none; }
+@media (min-width: 900px) {
+  .hero.has-portrait { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 48px; padding-top: 35px; padding-bottom: 70px; }
+  .hero.has-portrait h1 { font-size: clamp(65px, 7.8vw, 112px); }
+  .hero-photo { justify-self: end; }
+  .hero-photo { max-width: min(405px, calc((100svh - 195px) * .75)); }
+}
+@media (max-width: 899px) {
+  .hero.has-portrait { padding-top: 45px; padding-bottom: 35px; }
+  .hero.has-portrait .hero-scroll { position: static; margin-top: 8px; }
+}

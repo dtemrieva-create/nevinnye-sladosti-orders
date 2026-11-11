@@ -7,7 +7,7 @@ window.PUBLIC_CONFIG = Object.freeze({
   "catalogCsvUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTQE4i0ZUO7tq1ux1Sem2UwZMIyI990wT2lMv5-KmC4qmovLmd7_3iQX_tKL9qSJHuOG-Y6OkySE0oD/pub?output=csv",
   "headerLogo": "./brand/logo-header.png",
   "footerLogo": "./brand/logo-footer.png",
-  "heroImage": "./catalog/image1.jpg",
+  "heroImage": "./hero/celebration.png",
   "pinterestUrl": "https://ru.pinterest.com/daryatemrieva/невинные-сладости/",
   "gallery": [
     {
@@ -66,5 +66,6 @@ window.PUBLIC_CONFIG = Object.freeze({
     "image3.jpg": "image3.png",
     "image4.jpg": "image4.png",
     "image5.jpg": "image5.png"
-  }
+  },
+  "heroPresentation": "portrait"
 });
