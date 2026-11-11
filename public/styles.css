@@ -210,3 +210,4 @@ address small { color: #7a7481; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 .map-live { padding: 0; gap: 18px; background: var(--color-cream); } .map-live::before { display: none; } .map-live iframe { width: 100%; min-height: 380px; flex: 1; border: 0; } .map-live > a { margin-bottom: 22px; }
+.manual-confirmation { margin: 24px 0; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); } .manual-confirmation summary { cursor: pointer; color: var(--color-violet); } .manual-confirmation input { width: 100%; font-size: 12px; margin: 12px 0; }

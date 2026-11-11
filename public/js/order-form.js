@@ -22,6 +22,18 @@ export function initOrderForm(config) {
   const previous = document.querySelector('#previous-step');
   const submit = document.querySelector('#submit-order');
   const success = document.querySelector('#order-success');
+  const manualCommand = document.querySelector('#manual-command');
+  const copyCommand = document.querySelector('#copy-command');
+  copyCommand.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(manualCommand.value);
+      copyCommand.textContent = 'Скопировано — отправьте в чат бота';
+    } catch {
+      manualCommand.focus();
+      manualCommand.select();
+      copyCommand.textContent = 'Выделите и скопируйте команду';
+    }
+  });
   const date = form.elements.pickupDate;
   date.min = minimumDate();
   date.max = minimumDate(365);
@@ -165,6 +177,9 @@ export function initOrderForm(config) {
       const link = document.querySelector('#confirm-order');
       link.href = url.href;
       link.textContent = 'Подтвердить в ' + (max ? 'MAX' : 'Telegram') + ' ↗';
+      manualCommand.value = '/start ' + url.searchParams.get('start');
+      copyCommand.textContent = 'Скопировать команду';
+      document.querySelector('#manual-confirmation').open = false;
       success.focus({preventScroll: true});
     } catch (error) {
       status.textContent = error.name === 'TimeoutError'
