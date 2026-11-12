@@ -21,7 +21,7 @@ export async function initMedia(config) {
   document.querySelector('#gallery').hidden = gallery.children.length === 0;
   if (config.pinterestUrl) {
     const url = new URL(config.pinterestUrl);
-    if (url.protocol === 'https:' && /(^|\.)pinterest\.(com|ru)$/.test(url.hostname)) {
+    if (url.protocol === 'https:' && (url.hostname === 'pin.it' || /(^|\.)pinterest\.(com|ru)$/.test(url.hostname))) {
       const link = document.querySelector('#pinterest-link');
       link.href = url.href;
       link.hidden = false;

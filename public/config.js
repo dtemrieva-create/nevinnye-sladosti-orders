@@ -8,7 +8,7 @@ window.PUBLIC_CONFIG = Object.freeze({
   "headerLogo": "./brand/logo-header.png",
   "footerLogo": "./brand/logo-footer.png",
   "heroImage": "./hero/celebration-wide.png",
-  "pinterestUrl": "https://ru.pinterest.com/daryatemrieva/невинные-сладости/",
+  "pinterestUrl": "https://pin.it/6xTicaF9O",
   "gallery": [
     {
       "file": "work-1.jpg",
