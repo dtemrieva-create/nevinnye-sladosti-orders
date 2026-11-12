@@ -176,7 +176,7 @@ export function initOrderForm(config) {
         (max ? 'MAX' : 'Telegram') + ', чтобы получать ответы кондитера.';
       const link = document.querySelector('#confirm-order');
       link.href = url.href;
-      link.textContent = 'Подтвердить в ' + (max ? 'MAX' : 'Telegram') + ' ↗';
+      link.textContent = 'Подтвердить в ' + (max ? 'MAX' : 'Telegram') + '';
       manualCommand.value = '/start ' + url.searchParams.get('start');
       copyCommand.textContent = 'Скопировать команду';
       document.querySelector('#manual-confirmation').open = false;

@@ -38,7 +38,7 @@ export async function initCatalog(config, selectCake) {
       price.textContent = 'от ' + new Intl.NumberFormat('ru-RU').format(cake.price) + ' ₽/кг';
       const choose = document.createElement('button');
       choose.className = 'text-link';
-      choose.textContent = 'Выбрать ↗';
+      choose.textContent = 'Выбрать';
       choose.addEventListener('click', () => selectCake(cake));
       bottom.append(price, choose);
       body.append(title, description, bottom);
