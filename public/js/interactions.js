@@ -43,10 +43,10 @@ export function initInteractions(config) {
     max.href = config.maxBaseUrl;
     max.hidden = false;
   }
-  if (config.heroImage && config.heroPresentation === 'portrait') {
+  if (config.heroImage && ['portrait', 'banner'].includes(config.heroPresentation)) {
     document.querySelector('#hero-portrait').src = config.heroImage;
     document.querySelector('#hero-photo').hidden = false;
-    document.querySelector('.hero').classList.add('has-portrait');
+    document.querySelector('.hero').classList.add(config.heroPresentation === 'banner' ? 'has-banner' : 'has-portrait');
   } else if (config.heroImage) {
     const image = document.querySelector('#hero-image');
     image.style.backgroundImage = 'url("' + new URL(config.heroImage, document.baseURI).href + '")';
